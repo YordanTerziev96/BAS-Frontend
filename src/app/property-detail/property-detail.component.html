@@ -1,0 +1,116 @@
+<!-- banner -->
+<div class="inside-banner">
+    <div class="container"> 
+      <span class="pull-right"><a href="#">Home</a> / Buy</span>
+      <h2>Buy</h2>
+    </div>
+  </div>
+  <!-- banner -->
+  
+  <div class="container">
+    <div class="properties-listing spacer">
+      <div class="row">
+        <div class="col-lg-3 col-sm-4 hidden-xs">
+          <div class="hot-properties hidden-xs">
+            <h4>Hot Properties</h4>
+            <div class="row" *ngFor="let property of hotProperties">
+              <div class="col-lg-4 col-sm-5">
+                <img [src]="property.image" class="img-responsive img-circle" alt="properties"/>
+              </div>
+              <div class="col-lg-8 col-sm-7">
+                <h5><a [routerLink]="['/property', property.id]">{{ property.title }}</a></h5>
+                <p class="price">{{ property.price | currency }}</p>
+              </div>
+            </div>
+  
+            <div class="advertisement">
+              <h4>Advertisements</h4>
+              <img src="assets/images/advertisements.jpg" class="img-responsive" alt="advertisement">
+            </div>
+          </div>
+        </div>
+  
+        <div class="col-lg-9 col-sm-8 ">
+          <h2>{{ propertyDetail.title }}</h2>
+          <div class="row">
+            <div class="col-lg-8">
+              <div class="property-images">
+                <!-- Slider Starts -->
+                <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                  <!-- Indicators -->
+                  <ol class="carousel-indicators hidden-xs">
+                    <li *ngFor="let img of propertyDetail.images; let i = index"
+                        [attr.data-target]="'#myCarousel'" 
+                        [attr.data-slide-to]="i"
+                        [class.active]="i === 0"></li>
+                  </ol>
+                  <div class="carousel-inner">
+                    <div class="carousel-item" *ngFor="let img of propertyDetail.images; let i = index" [class.active]="i === 0">
+                      <img [src]="img" class="properties" alt="properties" />
+                    </div>
+                  </div>
+                  <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                  </a>
+                  <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                  </a>
+                </div>
+                <!-- #Slider Ends -->
+              </div>
+  
+              <div class="spacer">
+                <h4><span class="glyphicon glyphicon-th-list"></span> Properties Detail</h4>
+                <p>{{ propertyDetail.description }}</p>
+              </div>
+  
+              <div>
+                <h4><span class="glyphicon glyphicon-map-marker"></span> Location</h4>
+                <div class="well">
+                  <iframe width="100%" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+                          [src]="propertyDetail.locationMap | safeUrl"></iframe>
+                </div>
+              </div>
+            </div>
+  
+            <div class="col-lg-4">
+              <div class="col-lg-12 col-sm-6">
+                <div class="property-info">
+                  <p class="price">{{ propertyDetail.price | currency }}</p>
+                  <p class="area">
+                    <span class="glyphicon glyphicon-map-marker"></span> {{ propertyDetail.address }}
+                  </p>
+                  <div class="profile">
+                    <span class="glyphicon glyphicon-user"></span> Agent Details
+                    <p>{{ propertyDetail.agent.name }}<br>{{ propertyDetail.agent.phone }}</p>
+                  </div>
+                </div>
+  
+                <h6><span class="glyphicon glyphicon-home"></span> Availability</h6>
+                <div class="listing-detail">
+                  <span data-toggle="tooltip" data-placement="bottom" title="Bed Room">{{ propertyDetail.bedrooms }}</span>
+                  <span data-toggle="tooltip" data-placement="bottom" title="Living Room">{{ propertyDetail.livingRooms }}</span>
+                  <span data-toggle="tooltip" data-placement="bottom" title="Parking">{{ propertyDetail.parking }}</span>
+                  <span data-toggle="tooltip" data-placement="bottom" title="Kitchen">{{ propertyDetail.kitchens }}</span>
+                </div>
+              </div>
+  
+              <div class="col-lg-12 col-sm-6">
+                <div class="enquiry">
+                  <h6><span class="glyphicon glyphicon-envelope"></span> Post Enquiry</h6>
+                  <form (ngSubmit)="onEnquirySubmit()" #enquiryForm="ngForm">
+                    <input type="text" class="form-control" placeholder="Full Name" name="fullName" ngModel required />
+                    <input type="email" class="form-control" placeholder="you@yourdomain.com" name="email" ngModel required />
+                    <input type="tel" class="form-control" placeholder="Your Number" name="phone" ngModel required />
+                    <textarea rows="6" class="form-control" placeholder="What's on your mind?" name="message" ngModel required></textarea>
+                    <button type="submit" class="btn btn-primary" [disabled]="enquiryForm.invalid">Send Message</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

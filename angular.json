@@ -25,9 +25,22 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/assets/bootstrap/css/bootstrap.css",
+              "src/assets/owl-carousel/owl.carousel.css",
+              "src/assets/owl-carousel/owl.theme.css",
+              "src/assets/slitslider/css/custom.css",
+              "src/assets/slitslider/css/style.css",
+              "src/assets/css/style.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "src/assets/js/script.js",
+              "src/assets/bootstrap/js/bootstrap.js",
+              "src/assets/owl-carousel/owl.carousel.js",
+              "src/assets/slitslider/js/jquery.ba-cond.min.js",
+              "src/assets/slitslider/js/jquery.slitslider.js",
+              "src/assets/slitslider/js/modernizr.custom.79639.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -94,5 +107,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }

@@ -1,0 +1,70 @@
+<!-- banner -->
+<div class="inside-banner">
+  <div class="container"> 
+    <span class="pull-right"><a routerLink="/">Home</a> / Blogs</span>
+    <h2>Blogs</h2>
+  </div>
+</div>
+<!-- banner -->
+
+<div class="container">
+  <div class="spacer blog">
+    <div class="row">
+      <div class="col-lg-8 col-sm-12">
+        <!-- blog list -->
+        <div class="row" *ngFor="let blog of blogs">
+          <div class="col-lg-4 col-sm-4">
+            <a [routerLink]="['/blog-detail', blog.id]" class="thumbnail">
+              <img src="assets/images/blog/{{ blog.image }}" alt="{{ blog.title }}">
+            </a>
+          </div>
+          <div class="col-lg-8 col-sm-8">
+            <h3><a [routerLink]="['/blog-detail', blog.id]">{{ blog.title }}</a></h3>
+            <div class="info">Posted on: {{ blog.postedDate }}</div>                                               
+            <p>{{ blog.description }}</p>
+            <a [routerLink]="['/blog-detail', blog.id]" class="more">Read More</a>
+          </div>
+        </div>
+        <!-- /blog list -->
+      </div>
+
+      <div class="col-lg-4 visible-lg">
+        <!-- tabs -->
+        <div class="tabbable">
+          <ul class="nav nav-tabs">
+            <li><a href="#tab1" data-toggle="tab">Recent Post</a></li>
+            <li><a href="#tab2" data-toggle="tab">Most Popular</a></li>
+            <li class="active"><a href="#tab3" data-toggle="tab">Most Commented</a></li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane" id="tab1">
+              <ul class="list-unstyled">
+                <li *ngFor="let post of recentPosts">
+                  <h5><a [routerLink]="['/blog-detail', post.id]">{{ post.title }}</a></h5>
+                  <div class="info">Posted on: {{ post.postedDate }}</div>
+                </li>
+              </ul>
+            </div>
+            <div class="tab-pane" id="tab2">
+              <ul class="list-unstyled">
+                <li *ngFor="let post of popularPosts">
+                  <h5><a [routerLink]="['/blog-detail', post.id]">{{ post.title }}</a></h5>
+                  <div class="info">Posted on: {{ post.postedDate }}</div>
+                </li>
+              </ul>
+            </div>
+            <div class="tab-pane active" id="tab3">
+              <ul class="list-unstyled">
+                <li *ngFor="let post of commentedPosts">
+                  <h5><a [routerLink]="['/blog-detail', post.id]">{{ post.title }}</a></h5>
+                  <div class="info">Posted on: {{ post.postedDate }}</div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- tabs -->
+      </div>
+    </div>
+  </div>
+</div>
