@@ -6,13 +6,27 @@ import {
   HttpInterceptor
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class AuthInterceptorInterceptor implements HttpInterceptor {
 
-  constructor() {}
+  constructor(private authService: AuthService) {
+  }
 
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    return next.handle(request);
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    console.log('AuthInterceptor is called');
+    const token = this.authService.getToken();  // Get the JWT token
+
+    // If the token exists, clone the request and add the token to the headers
+    if (token && (typeof token !== 'undefined') && token !== "undefined") {
+      const cloned = req.clone({
+        headers: req.headers.set('Authorization', `Bearer ${token}`)
+      });
+      return next.handle(cloned);
+    }
+
+    // If no token is present, continue without modifying the request
+    return next.handle(req);
   }
 }
