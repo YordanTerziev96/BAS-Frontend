@@ -39,7 +39,6 @@
     <p class="copyright">Copyright 2013. All rights reserved.</p>
   </div>
 </div>
-
 <!-- Modal -->
 <div id="loginpop" class="modal fade" #loginpop>
   <div class="modal-dialog">
@@ -53,18 +52,45 @@
             {{ errorMessage }}
           </div>
 
-          <form (submit)="login()" class="" role="form">
-            <div class="form-group">
+          <form (submit)="login()" #loginForm="ngForm" role="form">
+            <div class="form-group"
+                 [ngClass]="{'has-error': loginForm.controls['username']?.invalid && loginForm.controls['username']?.touched}">
               <label class="sr-only" for="username">Username</label>
-              <input name="username" [(ngModel)]="username" type="text" class="form-control" id="username"
-                     placeholder="Enter username" required>
+              <div class="input-icon" style="position: relative;">
+                <input name="username" [(ngModel)]="username" type="text" class="form-control" id="username"
+                       placeholder="Enter username" required
+                       minlength="3" maxlength="20"
+                       [ngClass]="{'invalid-border': loginForm.controls['username']?.invalid && loginForm.controls['username']?.touched}">
+                <span class="validation-icon"
+                      [ngClass]="{'show-icon': loginForm.controls['username']?.invalid && loginForm.controls['username']?.touched}"></span>
+              </div>
+              <div *ngIf="loginForm.controls['username']?.invalid && loginForm.controls['username']?.touched"
+                   class="help-block text-danger">
+                <div *ngIf="loginForm.controls['username']?.errors?.['required']">Username is required!</div>
+                <div *ngIf="loginForm.controls['username']?.errors?.['minlength']">Username must have at least 3 characters!</div>
+                <div *ngIf="loginForm.controls['username']?.errors?.['maxlength']">Username can have at most 20 characters!</div>
+              </div>
             </div>
-            <div class="form-group">
+
+            <div class="form-group"
+                 [ngClass]="{'has-error': loginForm.controls['password']?.invalid && loginForm.controls['password']?.touched}">
               <label class="sr-only" for="password">Password</label>
-              <input name="password" [(ngModel)]="password" type="password" class="form-control"
-                     id="password"
-                     placeholder="Password" required>
+              <div class="input-icon" style="position: relative;">
+                <input name="password" [(ngModel)]="password" type="password" class="form-control"
+                       id="password" placeholder="Password" required
+                       minlength="8" maxlength="20"
+                       [ngClass]="{'invalid-border': loginForm.controls['password']?.invalid && loginForm.controls['password']?.touched}">
+                <span class="validation-icon"
+                      [ngClass]="{'show-icon': loginForm.controls['password']?.invalid && loginForm.controls['password']?.touched}"></span>
+              </div>
+              <div *ngIf="loginForm.controls['password']?.invalid && loginForm.controls['password']?.touched"
+                   class="help-block text-danger">
+                <div *ngIf="loginForm.controls['password']?.errors?.['required']">Password is required!</div>
+                <div *ngIf="loginForm.controls['password']?.errors?.['minlength']">Password must have at least 8 characters!</div>
+                <div *ngIf="loginForm.controls['password']?.errors?.['maxlength']">Password can have at most 20 characters!</div>
+              </div>
             </div>
+
             <div class="checkbox">
               <label>
                 <input type="checkbox"> Remember me
@@ -76,7 +102,7 @@
         <div class="col-sm-6">
           <h4>New User Sign Up</h4>
           <p>Join today and get updated with all the properties deal happening around.</p>
-          <button type="button" class="btn btn-info" routerLink="/register">Join Now</button>
+          <button type="button" class="btn btn-info" data-dismiss="modal" routerLink="/register">Join Now</button>
         </div>
       </div>
     </div>
